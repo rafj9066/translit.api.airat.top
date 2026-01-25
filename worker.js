@@ -1,3 +1,4 @@
+// Base Cyrillic -> Latin mapping (lowercase).
 const TRANSLIT_MAP = {
   а: 'a',
   б: 'b',
@@ -34,8 +35,10 @@ const TRANSLIT_MAP = {
   я: 'ya'
 };
 
+// Match Cyrillic letters (upper/lower, including Ё/ё).
 const CYRILLIC_REGEX = /[А-Яа-яЁё]/g;
 
+// Keep the API friendly for browser use.
 const CORS_HEADERS = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Methods': 'GET,POST,OPTIONS',
@@ -55,6 +58,7 @@ function transliterate(text) {
     if (mapped.length === 0) {
       return '';
     }
+    // Preserve capitalization for the first letter in the mapped output.
     return mapped[0].toUpperCase() + mapped.slice(1);
   });
 }
@@ -62,6 +66,7 @@ function transliterate(text) {
 async function readTextFromBody(request) {
   const contentType = request.headers.get('content-type') || '';
 
+  // Accept JSON body: { "text": "..." }
   if (contentType.includes('application/json')) {
     try {
       const body = await request.json();
@@ -71,12 +76,14 @@ async function readTextFromBody(request) {
     }
   }
 
+  // Accept form-encoded body: text=...
   if (contentType.includes('application/x-www-form-urlencoded')) {
     const body = await request.text();
     const params = new URLSearchParams(body);
     return params.get('text');
   }
 
+  // Accept raw text body.
   if (contentType.includes('text/plain')) {
     return await request.text();
   }
