@@ -1,0 +1,117 @@
+const TRANSLIT_MAP = {
+  а: 'a',
+  б: 'b',
+  в: 'v',
+  г: 'g',
+  д: 'd',
+  е: 'e',
+  ё: 'yo',
+  ж: 'zh',
+  з: 'z',
+  и: 'i',
+  й: 'y',
+  к: 'k',
+  л: 'l',
+  м: 'm',
+  н: 'n',
+  о: 'o',
+  п: 'p',
+  р: 'r',
+  с: 's',
+  т: 't',
+  у: 'u',
+  ф: 'f',
+  х: 'kh',
+  ц: 'ts',
+  ч: 'ch',
+  ш: 'sh',
+  щ: 'shch',
+  ь: '',
+  ы: 'y',
+  ъ: '',
+  э: 'e',
+  ю: 'yu',
+  я: 'ya'
+};
+
+const CYRILLIC_REGEX = /[А-Яа-яЁё]/g;
+
+const CORS_HEADERS = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'GET,POST,OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type'
+};
+
+function transliterate(text) {
+  return text.replace(CYRILLIC_REGEX, (char) => {
+    const lower = char.toLowerCase();
+    const mapped = TRANSLIT_MAP[lower];
+    if (mapped === undefined) {
+      return char;
+    }
+    if (char === lower) {
+      return mapped;
+    }
+    if (mapped.length === 0) {
+      return '';
+    }
+    return mapped[0].toUpperCase() + mapped.slice(1);
+  });
+}
+
+async function readTextFromBody(request) {
+  const contentType = request.headers.get('content-type') || '';
+
+  if (contentType.includes('application/json')) {
+    try {
+      const body = await request.json();
+      return typeof body?.text === 'string' ? body.text : null;
+    } catch {
+      return null;
+    }
+  }
+
+  if (contentType.includes('application/x-www-form-urlencoded')) {
+    const body = await request.text();
+    const params = new URLSearchParams(body);
+    return params.get('text');
+  }
+
+  if (contentType.includes('text/plain')) {
+    return await request.text();
+  }
+
+  return null;
+}
+
+function jsonResponse(data, status = 200) {
+  return new Response(JSON.stringify(data), {
+    status,
+    headers: {
+      'Content-Type': 'application/json; charset=utf-8',
+      ...CORS_HEADERS
+    }
+  });
+}
+
+export default {
+  async fetch(request) {
+    if (request.method === 'OPTIONS') {
+      return new Response(null, { status: 204, headers: CORS_HEADERS });
+    }
+
+    const url = new URL(request.url);
+    let text = url.searchParams.get('text');
+
+    if (text === null && request.method === 'POST') {
+      text = await readTextFromBody(request);
+    }
+
+    if (text === null) {
+      return jsonResponse({ error: 'Missing required parameter: text' }, 400);
+    }
+
+    const translit = transliterate(text);
+    return jsonResponse({ text, translit });
+  }
+};
