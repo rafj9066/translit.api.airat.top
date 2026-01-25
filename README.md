@@ -21,10 +21,10 @@ curl 'https://translit.api.airat.top/?text=%D0%9F%D1%80%D0%B8%D0%B2%D0%B5%D1%82'
 Response:
 
 ```json
-{"text":"\u041f\u0440\u0438\u0432\u0435\u0442","translit":"Privet"}
+{"text":"Привет","translit":"Privet"}
 ```
 
-Test in browser: https://translit.api.airat.top/?text=%D0%9F%D1%80%D0%B8%D0%B2%D0%B5%D1%82
+Test in browser: [https://translit.api.airat.top/?text=Привет](https://translit.api.airat.top/?text=%D0%9F%D1%80%D0%B8%D0%B2%D0%B5%D1%82)
 
 ### POST
 
@@ -33,13 +33,13 @@ Send `text` as JSON or as plain text.
 ```bash
 curl -X POST 'https://translit.api.airat.top/' \
   -H 'Content-Type: application/json' \
-  -d '{"text":"\u041f\u0440\u0438\u0432\u0435\u0442"}'
+  -d '{"text":"Привет"}'
 ```
 
 Response:
 
 ```json
-{"text":"\u041f\u0440\u0438\u0432\u0435\u0442","translit":"Privet"}
+{"text":"Привет","translit":"Privet"}
 ```
 
 ### Errors
