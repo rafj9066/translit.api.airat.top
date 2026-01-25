@@ -52,6 +52,20 @@ If `text` is missing, the API returns HTTP 400:
 
 CORS is enabled for all origins (`*`).
 
+## Monitoring
+
+Health check endpoint:
+
+```
+GET /health
+```
+
+Response:
+
+```json
+{"status":"ok"}
+```
+
 ## Project structure
 
 - `worker.js` - Cloudflare Worker script.

@@ -108,6 +108,9 @@ export default {
     }
 
     const url = new URL(request.url);
+    if (url.pathname === '/health') {
+      return jsonResponse({ status: 'ok' });
+    }
     let text = url.searchParams.get('text');
 
     if (text === null && request.method === 'POST') {
