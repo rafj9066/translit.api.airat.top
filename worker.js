@@ -42,7 +42,8 @@ const CYRILLIC_REGEX = /[А-Яа-яЁё]/g;
 const CORS_HEADERS = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Methods': 'GET,POST,OPTIONS',
-  'Access-Control-Allow-Headers': 'Content-Type'
+  'Access-Control-Allow-Headers': 'Content-Type',
+  'X-Robots-Tag': 'noindex, nofollow'
 };
 
 function transliterate(text) {
