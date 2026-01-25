@@ -58,7 +58,15 @@ CORS is enabled for all origins (`*`).
 
 ## Deployment
 
-Deploy the `worker.js` script to Cloudflare Workers using the dashboard or Wrangler. If you use Wrangler, add your own `wrangler.toml` to match your account and route.
+Deploy with Wrangler (the repo already includes `wrangler.toml`):
+
+```bash
+npx wrangler deploy
+```
+
+If you use Cloudflare Workers Builds (GitHub integration), set the deploy command to `npx wrangler deploy` and keep the root path at `/`.
+
+To serve it on a custom domain, add the domain in **Workers & Pages → Domains & Routes**. Cloudflare will create the DNS record and issue SSL automatically.
 
 ## License
 
