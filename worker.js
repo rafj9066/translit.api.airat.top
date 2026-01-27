@@ -102,6 +102,16 @@ function jsonResponse(data, status = 200) {
   });
 }
 
+function textResponse(text, status = 200) {
+  return new Response(text, {
+    status,
+    headers: {
+      'Content-Type': 'text/plain; charset=utf-8',
+      ...CORS_HEADERS
+    }
+  });
+}
+
 export default {
   async fetch(request) {
     if (request.method === 'OPTIONS') {
@@ -109,6 +119,9 @@ export default {
     }
 
     const url = new URL(request.url);
+    if (url.pathname === '/robots.txt') {
+      return textResponse('User-agent: *\nDisallow: /\n');
+    }
     if (url.pathname === '/health') {
       return jsonResponse({ status: 'ok' });
     }
